@@ -10,7 +10,7 @@ const createComment = function(req, res) {
 }
 
 const getComments = function(req, res) {
-  User.find({}).then(function(comms) {
+  Comment.find({}).then(function(comms) {
     res.send(comms)
   }).catch(function(error){
     res.status(500).send(error)
@@ -19,7 +19,7 @@ const getComments = function(req, res) {
 
 const deleteComment = function(req, res) {
   const _id = req.params.id
-  User.findByIdAndDelete(_id).then(function(comm){
+  Comment.findByIdAndDelete(_id).then(function(comm){
     if(!comm) {
       return res.status(404).send()
     }

@@ -10,7 +10,7 @@ const createMovie = function(req, res) {
 }
 
 const getMovies = function(req, res) {
-  User.find({}).then(function(movies) {
+  Movie.find({}).then(function(movies) {
     res.send(movies)
   }).catch(function(error){
     res.status(500).send(error)
@@ -19,7 +19,7 @@ const getMovies = function(req, res) {
 
 const getMovie = function(req, res) {
   const _id = req.params.id
-  User.findById(_id).then(function(movie) {
+  Movie.findById(_id).then(function(movie) {
     if(!movie) {
       return res.status(404).send()
     }
@@ -42,7 +42,7 @@ const updateMovie = function(req, res) {
       error: 'Invalid update, only allowed to update: ' + allowedUpdates
     })
   }
-  User.findByIdAndUpdate(_id, req.body ).then(function(movie) {
+  Movie.findByIdAndUpdate(_id, req.body ).then(function(movie) {
     if (!movie) {
       return res.status(404).send()
     }
@@ -54,7 +54,7 @@ const updateMovie = function(req, res) {
 
 const deleteMovie = function(req, res) {
   const _id = req.params.id
-  User.findByIdAndDelete(_id).then(function(movie){
+  Movie.findByIdAndDelete(_id).then(function(movie){
     if(!movie) {
       return res.status(404).send()
     }

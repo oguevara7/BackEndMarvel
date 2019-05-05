@@ -10,7 +10,7 @@ const createCharacter = function(req, res) {
 }
 
 const getCharacters = function(req, res) {
-  User.find({}).then(function(chars) {
+  Character.find({}).then(function(chars) {
     res.send(chars)
   }).catch(function(error){
     res.status(500).send(error)
@@ -19,7 +19,7 @@ const getCharacters = function(req, res) {
 
 const getCharacter = function(req, res) {
   const _id = req.params.id
-  User.findById(_id).then(function(char) {
+  Character.findById(_id).then(function(char) {
     if(!char) {
       return res.status(404).send()
     }
@@ -42,7 +42,7 @@ const updateCharacter = function(req, res) {
       error: 'Invalid update, only allowed to update: ' + allowedUpdates
     })
   }
-  User.findByIdAndUpdate(_id, req.body ).then(function(char) {
+  Character.findByIdAndUpdate(_id, req.body ).then(function(char) {
     if (!char) {
       return res.status(404).send()
     }
@@ -54,7 +54,7 @@ const updateCharacter = function(req, res) {
 
 const deleteCharacter = function(req, res) {
   const _id = req.params.id
-  User.findByIdAndDelete(_id).then(function(char){
+  Character.findByIdAndDelete(_id).then(function(char){
     if(!char) {
       return res.status(404).send()
     }
