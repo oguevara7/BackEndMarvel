@@ -10,6 +10,7 @@ const createCharacter = function(req, res) {
 }
 
 const getCharacters = function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
   Character.find({}).then(function(chars) {
     res.send(chars)
   }).catch(function(error){
