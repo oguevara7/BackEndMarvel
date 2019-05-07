@@ -12,13 +12,12 @@ const createUser = function(req, res) {
 const login = function(req, res) {
   User.findByCredentials(req.body.email, req.body.password).then(function(user) {
     user.generateToken().then(function(token) {
-      res.send({user, token})
+      return res.send({user, token})
     }).catch(function(error) {
       return res.status(401).send({error: error})
     })
-    res.send(user, token)
   }).catch(function(error) {
-    res.status(401).send({error: error})
+    return res.status(401).send({error: error})
   })
 }
 

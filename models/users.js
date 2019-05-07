@@ -6,11 +6,19 @@ const jwt = require('jsonwebtoken')
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
-    required: true
+    required: true,
+    unique: true,
+    validate(value) {
+      if(!validator.isEmail(value)) {
+        throw new Error('Email invalido.')
+      }
+    }
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    minlength: 8,
+    trim: true
   },
   name: {
     type: String,
@@ -23,10 +31,30 @@ const userSchema = new mongoose.Schema({
   profilePhoto: {
     type: String,
     required: true
+  },
+  tokens: [{
+    token: {
+      type: String,
+      required: true
+    }
+  }]
+}, {
+  toObject: {
+    virtuals: true
+  },
+  toJSON: {
+    virtuals: true
   }
 })
 
-const User = mongoose.model('User', userSchema)
+
+userSchema.methods.toJSON = function() {
+  const user = this
+  const userObject = user.toObject()
+  delete userObject.password
+  delete userObject.tokens
+  return userObject
+}
 
 userSchema.statics.findByCredentials = function(email, password) {
   return new Promise(function(resolve, reject) {
@@ -35,7 +63,11 @@ userSchema.statics.findByCredentials = function(email, password) {
         return reject('User does not exist.')
       }
       bcrypt.compare(password, user.password).then(function(match) {
-        return resolve(user)
+        if(match) {
+          return resolve(user)
+        } else {
+          return reject('Wrong password.')
+        }
       }).catch(function(error) {
         return reject('Wrong password.')
       })
@@ -69,5 +101,7 @@ userSchema.pre('save', function(next) {
     next()
   }
 })
+
+const User = mongoose.model('User', userSchema)
 
 module.exports = User

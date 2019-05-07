@@ -4,6 +4,6 @@ const connectionURL = 'mongodb+srv://admin:admin123@sandbox-0ttx5.mongodb.net/mc
 
 mongoose.connect( connectionURL, {
   useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false
+  useCreateIndex: true
+  //useFindAndModify: false
 })

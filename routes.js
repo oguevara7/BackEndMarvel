@@ -1,11 +1,13 @@
 const express = require('express')
-// const User = require('./models/user')
+const cors = require('cors')
 const router = express.Router()
 
 const characters = require('./controllers/characters.js')
 const comments = require('./controllers/comments.js')
 const movies = require('./controllers/movies.js')
 const users = require('./controllers/users.js')
+
+router.all('*', cors())
 
 router.post('/characters', characters.createCharacter)
 router.get('/characters/:id', characters.getCharacter)
@@ -27,5 +29,11 @@ router.post('/users', users.createUser)
 router.post('/users/login', users.login)
 router.get('/users/:id', users.getUser)
 router.patch('/users/:id', users.updateUser)
+
+router.get('*', function(req, res) {
+  res.send({
+    error: 'This route does not exist.'
+  })
+})
 
 module.exports = router
