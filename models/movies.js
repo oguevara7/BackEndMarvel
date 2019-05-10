@@ -19,7 +19,7 @@ const movieSchema = new mongoose.Schema({
   },
   characters: [{
     character: {
-      type: Object
+      type: String
     }
   }],
   premiere: {
