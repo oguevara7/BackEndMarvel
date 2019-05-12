@@ -56,8 +56,7 @@ const charSchema = new mongoose.Schema({
     required: true
   },
   photos: {
-    type: Array,
-    required: true
+    type: Array
   }
 })
 
