@@ -51,8 +51,7 @@ const movieSchema = new mongoose.Schema({
     required: true
   },
   stills: {
-    type: Array,
-    required: true
+    type: Array
   }
 })
 
