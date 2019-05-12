@@ -49,8 +49,7 @@ const charSchema = new mongoose.Schema({
     required: true
   },
   movies: [{
-    type: String,
-    required: true
+    type: String
   }],
   profilePhoto: {
     type: String,
