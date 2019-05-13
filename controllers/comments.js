@@ -19,11 +19,11 @@ const getComments = function(req, res) {
 
 const getComment = function(req, res) {
   const _id = req.params.movieID
-  Comment.find({movieID: _id}).then(function(char) {
-    if(!char) {
+  Comment.find({movieID: _id}).then(function(comm) {
+    if(!comm) {
       return res.status(404).send()
     }
-    return res.send(char)
+    return res.send(comm)
   }).catch(function(error) {
     return res.status(500).send(error)
   })
