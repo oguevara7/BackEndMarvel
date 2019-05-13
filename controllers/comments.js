@@ -17,6 +17,18 @@ const getComments = function(req, res) {
   })
 }
 
+const getComment = function(req, res) {
+  const _id = req.params.movieID
+  Comment.findOne(_id).then(function(char) {
+    if(!char) {
+      return res.status(404).send()
+    }
+    return res.send(char)
+  }).catch(function(error) {
+    return res.status(500).send(error)
+  })
+}
+
 const deleteComment = function(req, res) {
   const _id = req.params.id
   Comment.findByIdAndDelete(_id).then(function(comm){
@@ -32,5 +44,6 @@ const deleteComment = function(req, res) {
 module.exports = {
   createComment: createComment,
   getComments: getComments,
+  getComment: getComment,
   deleteComment: deleteComment
 }

@@ -18,6 +18,7 @@ router.delete('/characters/:id', auth, characters.deleteCharacter)
 
 router.post('/comments', auth, comments.createComment)
 router.get('/comments', comments.getComments)
+router.get('/comments/:id'), comments.getComment)
 router.delete('/comments/:id', auth, comments.deleteComment)
 
 router.post('/movies', auth, movies.createMovie)
