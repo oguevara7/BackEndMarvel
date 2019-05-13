@@ -2,11 +2,11 @@ const mongoose = require('mongoose')
 
 const commsSchema = new mongoose.Schema({
   movieID: {
-    type: mongoose.Types.ObjectId,
+    type: String,
     required: true
   },
   userID: {
-    type: mongoose.Types.ObjectId,
+    type: String,
     required: true
   },
   text: {
