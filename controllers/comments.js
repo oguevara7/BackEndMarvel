@@ -1,12 +1,24 @@
 const Comment = require('../models/comments')
+const User = require('../models/users')
 
 const createComment = function(req, res) {
-  const comm = new Comment(req.body)
-  comm.save().then(function() {
-    return res.send(comm)
+  User.findById(req.body.userID).then(function(user) {
+    if(!user) {
+      return res.status(404).send()
+    }
+      req.body.userName = user.name
+      req.body.userImage = user.profilePhoto
+      const comm = new Comment(req.body)
+      comm.save().then(function() {
+        return res.send(comm)
+      }).catch(function(error) {
+        return res.status(400).send(error)
+      })
   }).catch(function(error) {
-    return res.status(400).send(error)
+    return res.status(500).send(error)
   })
+
+  
 }
 
 const getComments = function(req, res) {
