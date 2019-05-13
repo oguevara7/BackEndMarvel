@@ -18,7 +18,7 @@ const getComments = function(req, res) {
 }
 
 const getComment = function(req, res) {
-  const _id = req.params.movieID
+  const _id = req.params.id
   Comment.find({movieID: _id}).then(function(comm) {
     if(!comm) {
       return res.status(404).send()
